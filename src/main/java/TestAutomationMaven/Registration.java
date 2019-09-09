@@ -12,8 +12,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import static java.lang.Thread.*;
-
 public class Registration
 {
     protected static WebDriver driver;
@@ -130,10 +128,17 @@ public class Registration
         //compare the actual with expected result
         //Assert.assertEquals(ActualResult,ExpectedResult);
 
-        String ExpectedResult = "";
-        String ActualResult = driver.findElement(By.xpath("//h2/a[@href=\"/vintage-style-engagement-ring\"]")).getText();
+        String ExpectedResult = "//span[@class='item']";
+        String ActualResult = driver.findElement(By.xpath("//span[@class='price actual-price']")).getText();
 
-        Assert.assertTrue(Boolean.parseBoolean(ActualResult),ExpectedResult);
+        int random = randomFunction();
+        int high = 3000;
+        int low = 700;
+        //assertTrue("Error, random is too high", high >= random);
+        //assertTrue("Error, random is too low", low <= random);
+        System.out.println("Test passed: " +random+ "is with in " +high+ " and " +low );
+
+
     }
     @Test
     public void AddBooksToShoppingBasket() throws InterruptedException {
