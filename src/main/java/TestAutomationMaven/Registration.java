@@ -58,11 +58,14 @@ public class Registration
         driver.findElement(By.id("ConfirmPassword")).sendKeys("test123");
         //click on register to register the account
         driver.findElement(By.name("register-button")).click();
+        //click on continue and it will lead to the homepage
+        driver.findElement(By.xpath("//input[@name='register-continue']")).click();
+
     }
     @AfterMethod                //will execute at the end of every method
     public void closeBrowser()
     {
-       // driver.close();      //will close the open browser
+        driver.close();      //will close the open browser
     }
     @Test
         public void registerAccount()       //account registration method has being done already in beforemethod here it will just compare the result
@@ -72,11 +75,8 @@ public class Registration
         Assert.assertEquals(ActualResult,ExpectedResult);
     }
     @Test
-        public void emailAFriend() throws InterruptedException
+        public void emailAFriend()
     {
-        //click on continue and it will lead to homepage
-        driver.findElement(By.xpath("//input[@name='register-continue']")).click();
-
         driver.findElement(By.xpath("//div[@class='product-grid home-page-product-grid']//div[@class='item-grid']//div[2]//div[1]//div[1]//a[1]//img[1]")).click();
         //click on email a friend
         driver.findElement(By.xpath("//input[@value='Email a friend']")).click();
@@ -96,9 +96,6 @@ public class Registration
     @Test
     public void selectCameraAndPhoto()
     {
-        //click on continue and it will lead to homepage
-        driver.findElement(By.xpath("//input[@name='register-continue']")).click();
-
         //select on Electrics
         driver.findElement(By.xpath("//h2[@class='title']//a[contains(text(),'Electronics')]")).click();
         //click on Camera & photo
@@ -113,39 +110,26 @@ public class Registration
     @Test
     public void userShouldBeFilterJewellery()
     {
-        //click on continue and it will lead to homepage
-        driver.findElement(By.xpath("//input[@name='register-continue']")).click();
-
         //select jewllery option
         driver.findElement(By.linkText("Jewelry")).click();
         //click on Filter by price $700-$3000
         driver.findElement(By.xpath("//a[contains(@href, '700-3000')]")).click();
 
         //comparing actual and expected result
-        //String ExpectedResult = "Vintage Style Engagement Ring";
-        //locator for actual result
-        //String ActualResult = driver.findElement(By.xpath("//h2/a[@href=\"/vintage-style-engagement-ring\"]")).getText();
-        //compare the actual with expected result
-        //Assert.assertEquals(ActualResult,ExpectedResult);
+        String Expectedresult="$700.00 - $3,000.00";
+        String Actualresult= driver.findElement(By.xpath("//span[@class='item']")).getText();
+        Assert.assertEquals(Actualresult,Expectedresult);
+        String Productprice=driver.findElement(By.xpath("//span[@class='price actual-price']")).getText();
 
-        String ExpectedResult = "//span[@class='item']";
-        String ActualResult = driver.findElement(By.xpath("//span[@class='price actual-price']")).getText();
+        String price1=String.valueOf(Productprice.replace("$",""));
+        String price2=String.valueOf(price1.replace(",",""));
+        double price=Double.valueOf(price2);
 
-        int random = randomFunction();
-        int high = 3000;
-        int low = 700;
-        //assertTrue("Error, random is too high", high >= random);
-        //assertTrue("Error, random is too low", low <= random);
-        System.out.println("Test passed: " +random+ "is with in " +high+ " and " +low );
-
-
+        Assert.assertTrue(price>=700 && price<=3000);
     }
     @Test
-    public void AddBooksToShoppingBasket() throws InterruptedException {
-
-        //click on continue and it will lead to the homepage
-        driver.findElement(By.xpath("//input[@name='register-continue']")).click();
-
+    public void AddBooksToShoppingBasket() throws InterruptedException
+    {
         //click(select) Books category
         driver.findElement(By.xpath("//ul[@class='top-menu notmobile']//a[@href='/books']")).click();
         //add first book to cart
