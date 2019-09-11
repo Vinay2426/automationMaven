@@ -16,13 +16,13 @@ public class Registration
 {
     protected static WebDriver driver;
 
-    public String generateEmail(String startValue)
+    public String generateEmail(String startValue)      //this method will add new number to email every time you run so there will be new email each time
     {
         String email = startValue.concat(new Date().toString());
         //your code
         return  email;
     }
-    public static String randomDate()
+    public static String randomDate()       //this method will add new number to email every time you run so there will be new email each time
     {
         DateFormat format = new SimpleDateFormat("ddMMyyHHmmss");
         return format.format(new Date());
@@ -58,10 +58,8 @@ public class Registration
         driver.findElement(By.id("ConfirmPassword")).sendKeys("test123");
         //click on register to register the account
         driver.findElement(By.name("register-button")).click();
-        //click on continue and it will lead to the homepage
-        driver.findElement(By.xpath("//input[@name='register-continue']")).click();
-
     }
+
     @AfterMethod                //will execute at the end of every method
     public void closeBrowser()
     {
@@ -77,6 +75,8 @@ public class Registration
     @Test
         public void emailAFriend()
     {
+        //click on continue and it will lead to the homepage
+        driver.findElement(By.xpath("//input[@name='register-continue']")).click();
         driver.findElement(By.xpath("//div[@class='product-grid home-page-product-grid']//div[@class='item-grid']//div[2]//div[1]//div[1]//a[1]//img[1]")).click();
         //click on email a friend
         driver.findElement(By.xpath("//input[@value='Email a friend']")).click();
@@ -96,6 +96,8 @@ public class Registration
     @Test
     public void selectCameraAndPhoto()
     {
+        //click on continue and it will lead to the homepage
+        driver.findElement(By.xpath("//input[@name='register-continue']")).click();
         //select on Electrics
         driver.findElement(By.xpath("//h2[@class='title']//a[contains(text(),'Electronics')]")).click();
         //click on Camera & photo
@@ -110,6 +112,8 @@ public class Registration
     @Test
     public void userShouldBeFilterJewellery()
     {
+        //click on continue and it will lead to the homepage
+        driver.findElement(By.xpath("//input[@name='register-continue']")).click();
         //select jewllery option
         driver.findElement(By.linkText("Jewelry")).click();
         //click on Filter by price $700-$3000
@@ -130,6 +134,8 @@ public class Registration
     @Test
     public void AddBooksToShoppingBasket() throws InterruptedException
     {
+        //click on continue and it will lead to the homepage
+        driver.findElement(By.xpath("//input[@name='register-continue']")).click();
         //click(select) Books category
         driver.findElement(By.xpath("//ul[@class='top-menu notmobile']//a[@href='/books']")).click();
         //add first book to cart
